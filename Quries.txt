@@ -1,0 +1,41 @@
+CREATE DATABASE mydb;
+
+
+USE mydb;
+
+
+CREATE TABLE news_data (
+    Title STRING,
+    Description STRING,
+    Source STRING,
+    PublishedAt STRING,
+    URL STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+
+LOAD DATA LOCAL INPATH '/home/fedelio420/news_data.csv'
+OVERWRITE INTO TABLE news_data;
+
+SELECT * FROM news_data LIMIT 10;
+
+
+Query 1 : Count the Number of Articles
+
+SELECT COUNT(*) AS article_count FROM news_data;
+
+Query 2: Find the Latest Articles
+
+SELECT Title, Source, PublishedAt
+FROM news_data
+ORDER BY PublishedAt DESC
+LIMIT 10;
+
+Query 3: Average Description Length
+
+SELECT AVG(LENGTH(Description)) AS avg_description_length
+FROM news_data;
+
+
